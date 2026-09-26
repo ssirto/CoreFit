@@ -1,0 +1,2 @@
+# CoreFit
+Progetto GPO
