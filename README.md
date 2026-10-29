@@ -92,6 +92,8 @@ By combining structured workout management, meaningful progression mechanics, an
 
 Una prima anteprima mobile è disponibile in [`prototype/`](prototype/). Include onboarding, login simulato, dashboard, creazione delle routine, registrazione degli allenamenti, statistiche e profilo. Le routine e le sessioni create vengono salvate solo nel browser; non sono ancora collegate a un database. Tre sessioni di esempio sono incluse per mostrare le statistiche.
 
+L'[anteprima online privata](https://corefit-mobile-preview.jauntynova15.chatgpt.site) è accessibile al proprietario del progetto e viene aggiornata quando pubblichiamo una nuova versione. Le pagine sono navigabili anche con i pulsanti Avanti e Indietro del browser.
+
 Per aprirla localmente, dalla cartella principale del progetto esegui:
 
 ```bash

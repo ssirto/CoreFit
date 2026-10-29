@@ -5,7 +5,7 @@ const demoSessions = [
   { id: 'demo-3', routine: 'Pull & Back', endedAt: daysAgo(5), minutes: 50, sets: 10, xp: 100, demo: true }
 ];
 const defaultData = {
-  onboard: 0, screen: 'onboarding', tab: 'home', name: 'Alex', goal: 'Allenarmi 3 volte a settimana',
+  onboard: 0, onboardingReturn: 'login', screen: 'onboarding', tab: 'home', name: 'Alex', goal: 'Allenarmi 3 volte a settimana',
   level: 7, xp: 740, workouts: 24, streak: 5, minutes: 1380, period: 'week',
   selectedRoutine: 0, activeRoutine: null, startedAt: null, completed: {}, activeSets: {}, sessions: demoSessions,
   routines: [
@@ -37,7 +37,18 @@ if (!state.activeSets || typeof state.activeSets !== 'object') state.activeSets 
 const app = document.getElementById('app');
 const e = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const save = () => localStorage.setItem('corefit-demo', JSON.stringify(state));
-const go = screen => { state.screen = screen; save(); render(); };
+const pages = new Set(['onboarding','login','home','routines','createRoutine','detail','workout','stats','profile','editProfile','finished']);
+const route = () => window.location.hash.replace(/^#\//,'');
+if (pages.has(route())) state.screen = route();
+else history.replaceState(null,'',`#/${state.screen}`);
+const go = screen => {
+  if (!pages.has(screen)) return;
+  state.screen = screen;
+  if (['home','routines','stats','profile'].includes(screen)) state.tab = screen;
+  save();
+  if (route() !== screen) history.pushState(null,'',`#/${screen}`);
+  render();
+};
 const nav = () => `<nav class="bottom-nav" aria-label="Navigazione principale">${[['home','⌂','Home'],['routines','▦','Routine'],['stats','▥','Statistiche'],['profile','◉','Profilo']].map(([id,icon,label])=>`<button data-tab="${id}" class="${state.tab===id?'active':''}" aria-label="${label}" aria-current="${state.tab===id?'page':'false'}"><span class="nav-symbol">${icon}</span>${label}</button>`).join('')}</nav>`;
 const shell = (content, showNav=true) => `<section class="screen">${content}</section>${showNav?nav():''}`;
 const brand = `<div class="brand">CORE<span>FIT</span></div>`;
@@ -77,6 +88,7 @@ function home(){
     <div class="eyebrow">${new Intl.DateTimeFormat('it-IT',{weekday:'long',day:'numeric',month:'long'}).format(new Date())} · il tuo percorso</div>
     <h1 class="title">Ciao, ${e(state.name)} <span style="color:#c9fa64">✳</span></h1>
     <p class="sub">Continua così: ogni sessione conta.</p>
+    ${state.activeRoutine !== null && state.routines[state.activeRoutine] ? `<div class="notice"><strong>Allenamento in corso</strong><p style="margin:5px 0 10px">${e(state.routines[state.activeRoutine].name)} è pronto per essere ripreso.</p><button class="small-btn" data-action="resume-workout">Riprendi allenamento →</button></div>` : ''}
     <div class="section-heading"><h2>Il prossimo passo</h2><span class="pill">✦ Livello ${state.level}</span></div>
     <div class="hero-card"><div class="eyebrow">Allenamento consigliato</div><h2>${e(first.name)}</h2><p>${e(first.focus)} · ${first.duration} min</p><button data-routine="0">Visualizza routine ↗</button></div>
     <div class="section-heading"><h2>La tua settimana</h2><button class="text-action" data-tab="stats">Vedi statistiche →</button></div>
@@ -86,8 +98,8 @@ function home(){
     <div class="section-heading"><h2>Le tue routine</h2><button class="text-action" data-tab="routines">Vedi tutte →</button></div>${routineCard(state.routines[1] || first, state.routines[1] ? 1 : 0)}`);
 }
 function routineCard(r,i){return `<button class="card routine-card" data-routine="${i}"><div class="row"><span class="routine-icon">${e(r.color)}</span><div><h3>${e(r.name)}</h3><p>${e(r.focus)}</p></div><span class="chevron">›</span></div><div class="meta"><span>◷ ${r.duration} min</span><span>▤ ${r.exercises.length} esercizi</span></div></button>`}
-function routines(){return shell(`${top(`<button class="icon-btn" data-action="new-routine" aria-label="Aggiungi routine">＋</button>`)}<div class="eyebrow">Allenati con un piano</div><h1 class="title">Le tue routine</h1><p class="sub">Scegli il tuo prossimo allenamento o crea una routine personale.</p><div class="section-heading"><h2>Pronte per te</h2><span class="pill">${state.routines.length} routine</span></div>${state.routines.map(routineCard).join('')}<button class="secondary" data-action="new-routine" style="margin-top:16px">＋ Crea una routine</button>`)}
-function detail(){const r=state.routines[state.selectedRoutine];if(!r)return routines();return shell(`${top(`<button class="icon-btn" data-action="back-routines" aria-label="Torna alle routine">×</button>`)}<div class="eyebrow">La tua routine</div><h1 class="title">${e(r.name)}</h1><p class="sub">${e(r.focus)}</p><div class="grid-2" style="margin-top:22px"><div class="stat-card"><span class="stat-icon">◷</span><strong>${r.duration}</strong><small>Minuti previsti</small></div><div class="stat-card"><span class="stat-icon">▤</span><strong>${r.exercises.length}</strong><small>Esercizi</small></div></div><div class="section-heading"><h2>Esercizi</h2><span class="mini-label">${r.exercises.length} totali</span></div><div class="card">${r.exercises.map((x,i)=>`<div class="exercise row"><span class="routine-icon" style="width:34px;height:34px;font-size:13px">${String(i+1).padStart(2,'0')}</span><div><h3>${e(x.name)}</h3><p>${e(x.detail)}</p></div></div>`).join('')}</div><div class="sticky-action"><button class="primary" data-action="start-workout">Inizia allenamento →</button></div>`,false)}
+function routines(){return shell(`${top(`<button class="icon-btn" data-action="new-routine" aria-label="Aggiungi routine">＋</button>`)}<div class="eyebrow">Allenati con un piano</div><h1 class="title">Le tue routine</h1><p class="sub">Scegli il tuo prossimo allenamento o crea una routine personale.</p>${state.activeRoutine !== null && state.routines[state.activeRoutine] ? `<div class="notice"><strong>Sessione in corso: ${e(state.routines[state.activeRoutine].name)}</strong><button class="small-btn" data-action="resume-workout" style="display:block;margin-top:7px">Riprendi →</button></div>` : ''}<div class="section-heading"><h2>Pronte per te</h2><span class="pill">${state.routines.length} routine</span></div>${state.routines.map(routineCard).join('')}<button class="secondary" data-action="new-routine" style="margin-top:16px">＋ Crea una routine</button>`)}
+function detail(){const r=state.routines[state.selectedRoutine];if(!r)return routines();return shell(`${top(`<button class="icon-btn" data-action="back-routines" aria-label="Torna alle routine">×</button>`)}<div class="eyebrow">La tua routine</div><h1 class="title">${e(r.name)}</h1><p class="sub">${e(r.focus)}</p><div class="grid-2" style="margin-top:22px"><div class="stat-card"><span class="stat-icon">◷</span><strong>${r.duration}</strong><small>Minuti previsti</small></div><div class="stat-card"><span class="stat-icon">▤</span><strong>${r.exercises.length}</strong><small>Esercizi</small></div></div><div class="section-heading"><h2>Esercizi</h2><span class="mini-label">${r.exercises.length} totali</span></div><div class="card">${r.exercises.map((x,i)=>`<div class="exercise row"><span class="routine-icon" style="width:34px;height:34px;font-size:13px">${String(i+1).padStart(2,'0')}</span><div><h3>${e(x.name)}</h3><p>${e(x.detail)}</p></div></div>`).join('')}</div><div class="sticky-action"><button class="primary" data-action="start-workout">${state.activeRoutine !== null ? (state.activeRoutine === state.selectedRoutine ? "Riprendi allenamento →" : "Riprendi la sessione in corso →") : "Inizia allenamento →"}</button></div>`,false)}
 function workout(){
   const {routine:r,total,done}=workoutProgress();
   return shell(`${top(`<button class="icon-btn" data-action="exit-workout" aria-label="Esci dall'allenamento">×</button>`)}
@@ -112,7 +124,7 @@ function stats(){
     <div class="card">${state.sessions.length?state.sessions.slice().reverse().slice(0,5).map(item=>`<div class="list-row"><span class="circle-icon">✓</span><div><strong>${e(item.routine)}</strong><small>${new Intl.DateTimeFormat('it-IT',{day:'numeric',month:'short'}).format(new Date(item.endedAt))} · ${item.minutes} min · ${item.sets} serie${item.demo?' · esempio':''}</small></div><span class="pill" style="margin-left:auto">+${item.xp} XP</span></div>`).join(''):'<p class="empty">Completa un allenamento per vedere qui i tuoi progressi.</p>'}</div>
     <div class="section-heading"><h2>In totale</h2></div><div class="grid-2"><div class="stat-card"><strong>${state.sessions.length}</strong><small>Sessioni</small></div><div class="stat-card"><strong>${state.sessions.reduce((sum,item)=>sum+item.minutes,0)}</strong><small>Minuti attivi</small></div></div>`);
 }
-function profile(){return shell(`${top(`<span class="pill">Livello ${state.level}</span>`)}<div class="eyebrow">Il tuo spazio</div><h1 class="title">Profilo</h1><div class="profile-head"><div class="avatar">${e(state.name[0]||'A')}</div><div><h2>${e(state.name)}</h2><p>In cammino verso la tua forma migliore</p></div></div><div class="card"><div class="row space"><strong>Livello ${state.level}</strong><span class="pill">✦ ${state.xp} XP</span></div><div class="progress-track" style="margin-top:16px"><div class="progress-fill" style="width:${Math.min(100,state.xp/xpGoal()*100)}%"></div></div><p class="sub" style="margin-top:10px">${Math.max(0,xpGoal()-state.xp)} XP al livello successivo</p></div><div class="section-heading"><h2>Il mio obiettivo</h2></div><div class="card"><div class="row"><span class="circle-icon">◎</span><div><strong>${e(state.goal)}</strong><small>Obiettivo personale</small></div></div></div><div class="section-heading"><h2>Impostazioni demo</h2></div><div class="card"><button class="list-row" data-action="edit-profile" style="width:100%;background:none;border-left:0;border-right:0;border-top:0;color:#fff;text-align:left"><span class="circle-icon">✎</span><div><strong>Modifica profilo</strong><small>Nome e obiettivo</small></div><span class="chevron">›</span></button><div class="list-row"><span class="circle-icon">♧</span><div><strong>CoreFit Premium</strong><small>Funzionalità prevista</small></div></div></div><button class="logout" data-action="logout">Esci dalla demo →</button>`)}
+function profile(){return shell(`${top(`<span class="pill">Livello ${state.level}</span>`)}<div class="eyebrow">Il tuo spazio</div><h1 class="title">Profilo</h1><div class="profile-head"><div class="avatar">${e(state.name[0]||'A')}</div><div><h2>${e(state.name)}</h2><p>In cammino verso la tua forma migliore</p></div></div><div class="card"><div class="row space"><strong>Livello ${state.level}</strong><span class="pill">✦ ${state.xp} XP</span></div><div class="progress-track" style="margin-top:16px"><div class="progress-fill" style="width:${Math.min(100,state.xp/xpGoal()*100)}%"></div></div><p class="sub" style="margin-top:10px">${Math.max(0,xpGoal()-state.xp)} XP al livello successivo</p></div><div class="section-heading"><h2>Il mio obiettivo</h2></div><div class="card"><div class="row"><span class="circle-icon">◎</span><div><strong>${e(state.goal)}</strong><small>Obiettivo personale</small></div></div></div><div class="section-heading"><h2>Impostazioni demo</h2></div><div class="card"><button class="list-row" data-action="edit-profile" style="width:100%;background:none;border-left:0;border-right:0;border-top:0;color:#fff;text-align:left"><span class="circle-icon">✎</span><div><strong>Modifica profilo</strong><small>Nome e obiettivo</small></div><span class="chevron">›</span></button><button class="list-row" data-action="replay-onboarding" style="width:100%;background:none;border-left:0;border-right:0;border-top:0;color:#fff;text-align:left"><span class="circle-icon">↗</span><div><strong>Rivedi introduzione</strong><small>Le tre schermate iniziali</small></div><span class="chevron">›</span></button><div class="list-row"><span class="circle-icon">♧</span><div><strong>CoreFit Premium</strong><small>Funzionalità prevista</small></div></div></div><button class="logout" data-action="logout">Esci dalla demo →</button>`)}
 function editProfile(){return shell(`${top(`<button class="icon-btn" data-action="profile" aria-label="Torna al profilo">×</button>`)}<div class="eyebrow">Personalizza</div><h1 class="title">Modifica profilo</h1><p class="sub">Queste modifiche restano nel browser.</p><form id="profile-form" style="margin-top:25px"><label class="field"><span>Nome</span><input name="name" value="${e(state.name)}" maxlength="30" required></label><label class="field"><span>Obiettivo</span><input name="goal" value="${e(state.goal)}" maxlength="70" required></label><button class="primary" type="submit">Salva modifiche</button></form>`,false)}
 function finished(){const last=state.sessions.at(-1);return shell(`${top()}<div class="onboard-art art-2" style="min-height:230px;margin:20px 0" aria-hidden="true"></div><div class="eyebrow">Sessione completata</div><h1 class="title" style="font-size:36px">Ottimo lavoro, ${e(state.name)}!</h1><p class="sub">${e(last?.routine||'Allenamento')} salvato nei tuoi progressi.</p><div class="grid-2" style="margin:25px 0"><div class="stat-card"><span class="stat-icon">✦</span><strong>+${last?.xp||0}</strong><small>XP guadagnati</small></div><div class="stat-card"><span class="stat-icon">✓</span><strong>${last?.sets||0}</strong><small>Serie completate</small></div></div><button class="primary" data-action="finish-home">Torna alla home</button>`,false)}
 function exerciseFields(){return `<div class="card exercise-fields" style="margin-bottom:12px"><div class="row space"><strong>Nuovo esercizio</strong><button type="button" class="small-btn" data-action="remove-exercise">Rimuovi</button></div><label class="field"><span>Nome esercizio</span><input name="exerciseName" placeholder="Es. Squat" maxlength="60" required></label><div class="grid-2"><label class="field"><span>Serie</span><input name="sets" type="number" min="1" max="10" value="3" required></label><label class="field"><span>Ripetizioni</span><input name="reps" type="number" min="1" max="100" value="10" required></label></div><label class="field"><span>Peso iniziale (kg)</span><input name="weight" type="number" min="0" max="1000" step="0.5" value="0" required></label></div>`}
@@ -130,15 +142,20 @@ app.addEventListener('click', event => {
   }
   if(el.dataset.period){state.period=el.dataset.period;save();render();return}
   switch(el.dataset.action){
-    case 'next-onboard':if(state.onboard<2){state.onboard++;save();render()}else go('login');break;
-    case 'skip-onboard':go('login');break;
+    case 'next-onboard':if(state.onboard<2){state.onboard++;save();render()}else go(state.onboardingReturn);break;
+    case 'skip-onboard':go(state.onboardingReturn);break;
     case 'demo-login':state.tab='home';go('home');break;
     case 'profile':state.tab='profile';go('profile');break;
     case 'back-routines':state.tab='routines';go('routines');break;
     case 'new-routine':go('createRoutine');break;
     case 'add-exercise':document.getElementById('exercise-fields').insertAdjacentHTML('beforeend',exerciseFields());break;
     case 'remove-exercise':if(document.querySelectorAll('.exercise-fields').length>1)el.closest('.exercise-fields').remove();break;
-    case 'start-workout':state.activeRoutine=state.selectedRoutine;state.startedAt=Date.now();state.completed={};state.activeSets={};go('workout');break;
+    case 'start-workout':
+      if (state.activeRoutine === null) {
+        state.activeRoutine=state.selectedRoutine;state.startedAt=Date.now();state.completed={};state.activeSets={};
+      }
+      go('workout');break;
+    case 'resume-workout':if(state.activeRoutine !== null)go('workout');break;
     case 'exit-workout':state.tab='routines';go('routines');break;
     case 'finish-workout':{
       const {routine,done}=workoutProgress();
@@ -159,6 +176,7 @@ app.addEventListener('click', event => {
     }
     case 'finish-home':state.tab='home';go('home');break;
     case 'edit-profile':go('editProfile');break;
+    case 'replay-onboarding':state.onboard=0;state.onboardingReturn='profile';go('onboarding');break;
     case 'logout':go('login');break;
   }
 });
@@ -191,5 +209,11 @@ app.addEventListener('submit',event=>{
     state.selectedRoutine=state.routines.length-1;
     go('detail');
   }
+});
+window.addEventListener('popstate',()=>{
+  if (!pages.has(route())) return;
+  state.screen = route();
+  if (['home','routines','stats','profile'].includes(state.screen)) state.tab = state.screen;
+  save();render();
 });
 render();
