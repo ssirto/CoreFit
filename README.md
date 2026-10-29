@@ -90,7 +90,7 @@ By combining structured workout management, meaningful progression mechanics, an
 
 ## Prototipo navigabile
 
-Una prima anteprima mobile è disponibile in [`prototype/`](prototype/). Include onboarding, login simulato, dashboard, creazione delle routine, registrazione degli allenamenti, statistiche e profilo. Le routine e le sessioni create vengono salvate solo nel browser; non sono ancora collegate a un database. Tre sessioni di esempio sono incluse per mostrare le statistiche.
+Una prima anteprima mobile è disponibile in [`prototype/`](prototype/). Include onboarding, login simulato, dashboard, elenco delle routine, schermate di allenamento, statistiche e profilo. Le pagine pubblicate sono navigabili tramite link HTML, senza dipendere da JavaScript. Numeri, traguardi e profilo sono dati di esempio; i campi dell'allenamento non vengono ancora salvati. Il codice della precedente demo interattiva resta in `prototype/app.js` per la fase successiva.
 
 L'[anteprima online privata](https://corefit-mobile-preview.jauntynova15.chatgpt.site) è accessibile al proprietario del progetto e viene aggiornata quando pubblichiamo una nuova versione. Le pagine sono navigabili anche con i pulsanti Avanti e Indietro del browser.
 
@@ -102,4 +102,4 @@ python3 -m http.server 8000
 
 Poi visita `http://localhost:8000/prototype/` nel browser. Da telefono, usa l'indirizzo del computer sulla stessa rete al posto di `localhost`.
 
-Su Windows PowerShell, dalla cartella principale del progetto, usa `python -m http.server 8000` oppure `py -m http.server 8000`. Se hai scaricato uno ZIP, scarica una nuova copia per ricevere gli aggiornamenti del prototipo. I dati salvati nel browser rimangono disponibili finché usi lo stesso indirizzo locale e non cancelli i dati del sito.
+Su Windows PowerShell, dalla cartella principale del progetto, usa `python -m http.server 8000` oppure `py -m http.server 8000`. Se hai scaricato uno ZIP, scarica una nuova copia per ricevere gli aggiornamenti del prototipo.
