@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#101419" />
     <meta name="description" content="Anteprima mobile navigabile di CoreFit." />
     <title>CoreFit · Benvenuto</title>
-    <link rel="stylesheet" href="styles.css?v=4" />
+    <link rel="stylesheet" href="styles.css?v=5" />
   </head>
   <body>
     <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br />La tua evoluzione.</p></div>
@@ -14,14 +14,45 @@
       <div class="status-bar" aria-hidden="true"><span>9:41</span><span>●●● ▰</span></div>
       <main class="screen static-screen onboard-static">
         <div class="brand">CORE<span>FIT</span></div>
-        <div class="onboard-art" aria-hidden="true"></div>
-        <div class="eyebrow">01 / 03 · Benvenuto</div>
-        <h1 class="title">Ogni allenamento è un passo avanti.</h1>
-        <p class="sub">Tieni traccia delle tue sessioni e rendi visibili i tuoi progressi.</p>
-        <div class="dots" aria-hidden="true"><span class="active"></span><span></span><span></span></div>
-        <div class="static-spacer"></div>
-        <a class="primary link-button" href="onboarding-2.html">Continua →</a>
-        <a class="small-btn center-link" href="login.html">Salta introduzione</a>
+        <div class="onboarding-carousel">
+          <input class="step-control" type="radio" id="step-1" name="onboarding" checked />
+          <input class="step-control" type="radio" id="step-2" name="onboarding" />
+          <input class="step-control" type="radio" id="step-3" name="onboarding" />
+          <div class="onboarding-viewport">
+            <div class="onboarding-track">
+              <section class="onboarding-slide" aria-label="Introduzione 1 di 3">
+                <div class="onboard-art" aria-hidden="true"></div>
+                <div class="eyebrow">01 / 03 · Benvenuto</div>
+                <h1 class="title">Ogni allenamento è un passo avanti.</h1>
+                <p class="sub">Tieni traccia delle tue sessioni e rendi visibili i tuoi progressi.</p>
+                <div class="dots" aria-hidden="true"><span class="active"></span><span></span><span></span></div>
+                <div class="static-spacer"></div>
+                <label class="primary link-button slide-action" for="step-2">Continua →</label>
+                <a class="small-btn center-link" href="login.html">Salta introduzione</a>
+              </section>
+              <section class="onboarding-slide" aria-label="Introduzione 2 di 3">
+                <div class="onboard-art art-1" aria-hidden="true"></div>
+                <div class="eyebrow">02 / 03 · Le tue routine</div>
+                <h1 class="title">Le tue routine, a modo tuo.</h1>
+                <p class="sub">Organizza gli esercizi e concentrati su quello che conta.</p>
+                <div class="dots" aria-hidden="true"><span></span><span class="active"></span><span></span></div>
+                <div class="static-spacer"></div>
+                <label class="primary link-button slide-action" for="step-3">Continua →</label>
+                <label class="small-btn center-link slide-back" for="step-1">← Indietro</label>
+              </section>
+              <section class="onboarding-slide" aria-label="Introduzione 3 di 3">
+                <div class="onboard-art art-2" aria-hidden="true"></div>
+                <div class="eyebrow">03 / 03 · Il tuo percorso</div>
+                <h1 class="title">Allenati. Guadagna XP. Evolvi.</h1>
+                <p class="sub">Trasforma la costanza in livelli, traguardi e motivazione.</p>
+                <div class="dots" aria-hidden="true"><span></span><span></span><span class="active"></span></div>
+                <div class="static-spacer"></div>
+                <a class="primary link-button" href="login.html">Inizia ora →</a>
+                <label class="small-btn center-link slide-back" for="step-2">← Indietro</label>
+              </section>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   </body>
