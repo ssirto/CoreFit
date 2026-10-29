@@ -30,23 +30,23 @@ const defaultData = {
 };
 let saved = null;
 try { saved = JSON.parse(localStorage.getItem('corefit-demo') || 'null'); } catch { /* A corrupted demo can start fresh. */ }
-let state = saved ? { ...defaultData, ...saved } : structuredClone(defaultData);
-if (!Array.isArray(state.routines)) state.routines = structuredClone(defaultData.routines);
-if (!Array.isArray(state.sessions)) state.sessions = structuredClone(demoSessions);
+let state = saved ? { ...defaultData, ...saved } : JSON.parse(JSON.stringify(defaultData));
+if (!Array.isArray(state.routines)) state.routines = JSON.parse(JSON.stringify(defaultData.routines));
+if (!Array.isArray(state.sessions)) state.sessions = JSON.parse(JSON.stringify(demoSessions));
 if (!state.activeSets || typeof state.activeSets !== 'object') state.activeSets = {};
 const app = document.getElementById('app');
 const e = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const save = () => localStorage.setItem('corefit-demo', JSON.stringify(state));
+const save = () => { try { localStorage.setItem('corefit-demo', JSON.stringify(state)); } catch { /* The demo remains usable without browser storage. */ } };
 const pages = new Set(['onboarding','login','home','routines','createRoutine','detail','workout','stats','profile','editProfile','finished']);
 const route = () => window.location.hash.replace(/^#\//,'');
 if (pages.has(route())) state.screen = route();
-else history.replaceState(null,'',`#/${state.screen}`);
+else { try { history.replaceState(null,'',`#/${state.screen}`); } catch { /* Routing still works in memory. */ } }
 const go = screen => {
   if (!pages.has(screen)) return;
   state.screen = screen;
   if (['home','routines','stats','profile'].includes(screen)) state.tab = screen;
   save();
-  if (route() !== screen) history.pushState(null,'',`#/${screen}`);
+  if (route() !== screen) { try { history.pushState(null,'',`#/${screen}`); } catch { /* Routing still works in memory. */ } }
   render();
 };
 const nav = () => `<nav class="bottom-nav" aria-label="Navigazione principale">${[['home','⌂','Home'],['routines','▦','Routine'],['stats','▥','Statistiche'],['profile','◉','Profilo']].map(([id,icon,label])=>`<button data-tab="${id}" class="${state.tab===id?'active':''}" aria-label="${label}" aria-current="${state.tab===id?'page':'false'}"><span class="nav-symbol">${icon}</span>${label}</button>`).join('')}</nav>`;
@@ -126,7 +126,7 @@ function stats(){
 }
 function profile(){return shell(`${top(`<span class="pill">Livello ${state.level}</span>`)}<div class="eyebrow">Il tuo spazio</div><h1 class="title">Profilo</h1><div class="profile-head"><div class="avatar">${e(state.name[0]||'A')}</div><div><h2>${e(state.name)}</h2><p>In cammino verso la tua forma migliore</p></div></div><div class="card"><div class="row space"><strong>Livello ${state.level}</strong><span class="pill">✦ ${state.xp} XP</span></div><div class="progress-track" style="margin-top:16px"><div class="progress-fill" style="width:${Math.min(100,state.xp/xpGoal()*100)}%"></div></div><p class="sub" style="margin-top:10px">${Math.max(0,xpGoal()-state.xp)} XP al livello successivo</p></div><div class="section-heading"><h2>Il mio obiettivo</h2></div><div class="card"><div class="row"><span class="circle-icon">◎</span><div><strong>${e(state.goal)}</strong><small>Obiettivo personale</small></div></div></div><div class="section-heading"><h2>Impostazioni demo</h2></div><div class="card"><button class="list-row" data-action="edit-profile" style="width:100%;background:none;border-left:0;border-right:0;border-top:0;color:#fff;text-align:left"><span class="circle-icon">✎</span><div><strong>Modifica profilo</strong><small>Nome e obiettivo</small></div><span class="chevron">›</span></button><button class="list-row" data-action="replay-onboarding" style="width:100%;background:none;border-left:0;border-right:0;border-top:0;color:#fff;text-align:left"><span class="circle-icon">↗</span><div><strong>Rivedi introduzione</strong><small>Le tre schermate iniziali</small></div><span class="chevron">›</span></button><div class="list-row"><span class="circle-icon">♧</span><div><strong>CoreFit Premium</strong><small>Funzionalità prevista</small></div></div></div><button class="logout" data-action="logout">Esci dalla demo →</button>`)}
 function editProfile(){return shell(`${top(`<button class="icon-btn" data-action="profile" aria-label="Torna al profilo">×</button>`)}<div class="eyebrow">Personalizza</div><h1 class="title">Modifica profilo</h1><p class="sub">Queste modifiche restano nel browser.</p><form id="profile-form" style="margin-top:25px"><label class="field"><span>Nome</span><input name="name" value="${e(state.name)}" maxlength="30" required></label><label class="field"><span>Obiettivo</span><input name="goal" value="${e(state.goal)}" maxlength="70" required></label><button class="primary" type="submit">Salva modifiche</button></form>`,false)}
-function finished(){const last=state.sessions.at(-1);return shell(`${top()}<div class="onboard-art art-2" style="min-height:230px;margin:20px 0" aria-hidden="true"></div><div class="eyebrow">Sessione completata</div><h1 class="title" style="font-size:36px">Ottimo lavoro, ${e(state.name)}!</h1><p class="sub">${e(last?.routine||'Allenamento')} salvato nei tuoi progressi.</p><div class="grid-2" style="margin:25px 0"><div class="stat-card"><span class="stat-icon">✦</span><strong>+${last?.xp||0}</strong><small>XP guadagnati</small></div><div class="stat-card"><span class="stat-icon">✓</span><strong>${last?.sets||0}</strong><small>Serie completate</small></div></div><button class="primary" data-action="finish-home">Torna alla home</button>`,false)}
+function finished(){const last=state.sessions[state.sessions.length-1];return shell(`${top()}<div class="onboard-art art-2" style="min-height:230px;margin:20px 0" aria-hidden="true"></div><div class="eyebrow">Sessione completata</div><h1 class="title" style="font-size:36px">Ottimo lavoro, ${e(state.name)}!</h1><p class="sub">${e(last?.routine||'Allenamento')} salvato nei tuoi progressi.</p><div class="grid-2" style="margin:25px 0"><div class="stat-card"><span class="stat-icon">✦</span><strong>+${last?.xp||0}</strong><small>XP guadagnati</small></div><div class="stat-card"><span class="stat-icon">✓</span><strong>${last?.sets||0}</strong><small>Serie completate</small></div></div><button class="primary" data-action="finish-home">Torna alla home</button>`,false)}
 function exerciseFields(){return `<div class="card exercise-fields" style="margin-bottom:12px"><div class="row space"><strong>Nuovo esercizio</strong><button type="button" class="small-btn" data-action="remove-exercise">Rimuovi</button></div><label class="field"><span>Nome esercizio</span><input name="exerciseName" placeholder="Es. Squat" maxlength="60" required></label><div class="grid-2"><label class="field"><span>Serie</span><input name="sets" type="number" min="1" max="10" value="3" required></label><label class="field"><span>Ripetizioni</span><input name="reps" type="number" min="1" max="100" value="10" required></label></div><label class="field"><span>Peso iniziale (kg)</span><input name="weight" type="number" min="0" max="1000" step="0.5" value="0" required></label></div>`}
 function createRoutine(){return shell(`${top(`<button class="icon-btn" data-action="back-routines" aria-label="Torna alle routine">×</button>`)}<div class="eyebrow">Il tuo piano</div><h1 class="title">Nuova routine</h1><p class="sub">Prepara gli esercizi per il tuo prossimo allenamento.</p><form id="routine-form"><label class="field"><span>Nome routine</span><input name="name" placeholder="Es. Full body" maxlength="50" required></label><label class="field"><span>Obiettivo o focus</span><input name="focus" placeholder="Es. Forza · tutto il corpo" maxlength="80" required></label><label class="field"><span>Durata prevista (minuti)</span><input name="duration" type="number" min="5" max="240" value="45" required></label><div class="section-heading"><h2>Esercizi</h2></div><div id="exercise-fields">${exerciseFields()}</div><button type="button" class="secondary" data-action="add-exercise">＋ Aggiungi esercizio</button><button class="primary" type="submit" style="margin-top:20px">Salva routine</button></form>`,false)}
 function render(){const screens={onboarding,login,home,routines,createRoutine,detail,workout,stats,profile,editProfile,finished};app.innerHTML=(screens[state.screen]||home)();app.querySelector('.screen')?.scrollTo(0,0)}
@@ -168,7 +168,7 @@ app.addEventListener('click', event => {
       });
       const minutes=Math.max(1,Math.round((Date.now()-state.startedAt)/60000));
       const xp=20+done*10;
-      state.sessions.push({id:crypto.randomUUID(),routine:routine.name,endedAt:new Date().toISOString(),minutes,sets:done,xp,details:sets});
+      state.sessions.push({id:`session-${Date.now()}-${Math.random().toString(36).slice(2)}`,routine:routine.name,endedAt:new Date().toISOString(),minutes,sets:done,xp,details:sets});
       state.xp+=xp;
       while(state.xp>=xpGoal())state.level++;
       state.activeRoutine=null;state.startedAt=null;state.completed={};state.activeSets={};
@@ -183,7 +183,7 @@ app.addEventListener('click', event => {
 app.addEventListener('input', event => {
   const input=event.target;
   if(!input.dataset.value)return;
-  state.activeSets[input.dataset.value]??={};
+  if(!state.activeSets[input.dataset.value])state.activeSets[input.dataset.value]={};
   state.activeSets[input.dataset.value][input.dataset.field]=input.value;
   save();
 });

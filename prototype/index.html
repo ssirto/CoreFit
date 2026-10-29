@@ -6,14 +6,20 @@
     <meta name="theme-color" content="#101419" />
     <meta name="description" content="Prototipo navigabile di CoreFit, app mobile per allenamenti e progressi." />
     <title>CoreFit · Prototipo</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=3" />
   </head>
   <body>
     <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br />La tua evoluzione.</p></div>
     <div class="device-shell">
       <div class="status-bar" aria-hidden="true"><span>9:41</span><span>●●● ▰</span></div>
-      <main id="app" aria-live="polite"></main>
+      <main id="app" aria-live="polite">
+        <section class="screen">
+          <div class="brand">CORE<span>FIT</span></div>
+          <h1 class="title" style="margin-top:72px">Prepariamo il tuo allenamento.</h1>
+          <p class="sub">Se questa schermata rimane visibile, ricarica la pagina. L’anteprima potrebbe non aver caricato lo script.</p>
+        </section>
+      </main>
     </div>
-    <script src="app.js"></script>
+    <script src="app.js?v=3"></script>
   </body>
 </html>
