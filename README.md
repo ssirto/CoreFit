@@ -87,3 +87,15 @@ CoreFit aims to transform traditional fitness tracking into an **interactive, re
 By combining structured workout management, meaningful progression mechanics, and AI-powered coaching, CoreFit encourages users to build consistent training habits, achieve their goals, and make long-term fitness progress.
 
 *CoreFit is under development. Premium features and advanced AI capabilities are planned for future releases.*
+
+## Prototipo navigabile
+
+Una prima anteprima mobile è disponibile in [`prototype/`](prototype/). Include onboarding, login simulato, dashboard, routine, allenamento, statistiche e profilo. I dati dimostrativi e le modifiche al profilo vengono salvati solo nel browser; non sono ancora collegati a un database.
+
+Per aprirla localmente, dalla cartella principale del progetto esegui:
+
+```bash
+python3 -m http.server 8000
+```
+
+Poi visita `http://localhost:8000/prototype/` nel browser. Da telefono, usa l'indirizzo del computer sulla stessa rete al posto di `localhost`.
