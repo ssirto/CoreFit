@@ -90,7 +90,7 @@ By combining structured workout management, meaningful progression mechanics, an
 
 ## Prototipo navigabile
 
-Una prima anteprima mobile è disponibile in [`prototype/`](prototype/). Include onboarding, login simulato, dashboard, routine, allenamento, statistiche e profilo. I dati dimostrativi e le modifiche al profilo vengono salvati solo nel browser; non sono ancora collegati a un database.
+Una prima anteprima mobile è disponibile in [`prototype/`](prototype/). Include onboarding, login simulato, dashboard, creazione delle routine, registrazione degli allenamenti, statistiche e profilo. Le routine e le sessioni create vengono salvate solo nel browser; non sono ancora collegate a un database. Tre sessioni di esempio sono incluse per mostrare le statistiche.
 
 Per aprirla localmente, dalla cartella principale del progetto esegui:
 
@@ -99,3 +99,5 @@ python3 -m http.server 8000
 ```
 
 Poi visita `http://localhost:8000/prototype/` nel browser. Da telefono, usa l'indirizzo del computer sulla stessa rete al posto di `localhost`.
+
+Su Windows PowerShell, dalla cartella principale del progetto, usa `python -m http.server 8000` oppure `py -m http.server 8000`. Se hai scaricato uno ZIP, scarica una nuova copia per ricevere gli aggiornamenti del prototipo. I dati salvati nel browser rimangono disponibili finché usi lo stesso indirizzo locale e non cancelli i dati del sito.
