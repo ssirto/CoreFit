@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101419"><title>CoreFit · Profilo</title>
-  <link rel="stylesheet" href="styles.css?v=6"><script src="corefit.js?v=6" defer></script>
+  <link rel="stylesheet" href="styles.css?v=8"><script src="corefit.js?v=8" defer></script><script src="gamification.js?v=8" defer></script>
 </head>
 <body data-page="profile">
   <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
@@ -16,8 +16,13 @@
       <div class="card"><div class="row space"><strong>Progressi registrati</strong><span class="pill">Locale</span></div><p class="sub" style="margin-top:10px">Le tue sessioni restano su questo dispositivo.</p></div>
       <div class="section-heading"><h2>I miei numeri</h2></div>
       <div class="grid-2"><div class="stat-card"><strong id="profile-sessions">0</strong><small>Allenamenti</small></div><div class="stat-card"><strong id="profile-sets">0</strong><small>Serie completate</small></div></div>
+      <div class="section-heading"><h2>La mia crescita</h2></div>
+      <div class="grid-2"><div class="stat-card"><strong id="profile-level">1</strong><small>Livello</small></div><div class="stat-card"><strong id="profile-xp">0</strong><small>XP totali</small></div><div class="stat-card full-span"><strong id="profile-streak">0</strong><small>Giorni di streak attiva</small></div></div>
       <div class="section-heading"><h2>Esplora</h2></div>
       <a class="card routine-link profile-link" href="routines.html"><span class="circle-icon">▦</span><div><strong>Le mie routine</strong><small>Organizza il prossimo allenamento</small></div><span class="chevron">›</span></a>
+      <a class="card routine-link profile-link" href="achievements.html" style="margin-top:10px"><span class="circle-icon">★</span><div><strong>Achievement</strong><small>I traguardi sbloccati</small></div><span class="chevron">›</span></a>
+      <a class="card routine-link profile-link" href="challenges.html" style="margin-top:10px"><span class="circle-icon">↗</span><div><strong>Sfide</strong><small>Obiettivi della settimana e del mese</small></div><span class="chevron">›</span></a>
+      <a class="card routine-link profile-link" href="notifications.html" style="margin-top:10px"><span class="circle-icon">🔔</span><div><strong>Notifiche</strong><small>Le novità del tuo percorso</small></div><span class="chevron">›</span></a>
       <a class="card routine-link profile-link" href="index.html" style="margin-top:10px"><span class="circle-icon">↗</span><div><strong>Rivedi introduzione</strong><small>Le tre schermate iniziali</small></div><span class="chevron">›</span></a>
       <a class="logout" href="login.html">Torna all’accesso →</a>
       <p class="demo-note">La gestione dell’account arriverà con il database e il login reale.</p>

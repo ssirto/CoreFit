@@ -3,24 +3,29 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101419"><title>CoreFit · Home</title>
-  <link rel="stylesheet" href="styles.css?v=6"><script src="corefit.js?v=6" defer></script>
+  <link rel="stylesheet" href="styles.css?v=8"><script src="corefit.js?v=8" defer></script><script src="gamification.js?v=8" defer></script>
 </head>
 <body data-page="home">
   <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
   <div class="device-shell">
     <div class="status-bar" aria-hidden="true"><span>9:41</span><span>●●● ▰</span></div>
     <main class="screen static-screen">
-      <div class="topline"><div class="brand">CORE<span>FIT</span></div><a class="avatar" href="profile.html" aria-label="Apri profilo">A</a></div>
+      <div class="topline"><div class="brand">CORE<span>FIT</span></div><div class="top-actions"><a class="icon-btn notification-link" href="notifications.html" aria-label="Apri notifiche">🔔<span id="home-notification-count" class="notification-badge" hidden>0</span></a><a class="avatar" href="profile.html" aria-label="Apri profilo">A</a></div></div>
       <div class="eyebrow">Il tuo percorso</div><h1 class="title">Ciao, Alex <span class="accent">✳</span></h1>
       <p class="sub">Continua così: ogni sessione conta.</p>
       <a id="home-resume" class="notice resume-link" href="session.html" hidden>Hai un allenamento in corso. Riprendilo →</a>
+      <section class="level-panel" aria-label="Livello ed esperienza"><div class="row space"><span class="level-pill">LIVELLO <strong id="home-level">1</strong></span><span class="level-total"><strong id="home-xp">0</strong> / <span id="home-xp-next">200</span> XP</span></div><h2>Ogni allenamento ti fa crescere.</h2><div class="progress-track level-track"><div id="home-xp-fill" class="progress-fill" style="width:0%"></div></div><div class="streak-strip"><span>♨ <strong id="home-streak">0</strong> <span id="home-streak-unit">giorni</span> di streak</span><span>Record: <strong id="home-best-streak">0</strong></span></div></section>
       <div class="section-heading"><h2>Il prossimo passo</h2></div>
       <div class="hero-card"><div class="eyebrow">Allenamento consigliato</div><h2>Upper Body Power</h2><p>Petto · Spalle · Tricipiti · 55 min</p><a class="hero-link" href="session.html?id=upper">Inizia allenamento ↗</a></div>
+      <div class="section-heading"><h2>La tua sfida</h2><a class="text-action" href="challenges.html">Vedi tutte →</a></div>
+      <div id="home-challenge-preview"><p class="sub">Le sfide si aggiornano con gli allenamenti.</p></div>
+      <div class="section-heading"><h2>Achievement</h2><a class="text-action" href="achievements.html">Vedi tutti →</a></div>
+      <div id="home-achievement-preview"><p class="sub">Il primo achievement ti aspetta.</p></div>
       <div class="section-heading"><h2>La tua settimana</h2><a class="text-action" href="stats.html">Vedi statistiche →</a></div>
       <div class="grid-2"><div class="stat-card"><span class="stat-icon">▥</span><strong id="home-week-count">0</strong><small>Allenamenti</small></div><div class="stat-card"><span class="stat-icon">◷</span><strong id="home-week-minutes">0</strong><small>Minuti attivi</small></div></div>
       <div class="section-heading"><h2>Le tue routine</h2><a class="text-action" href="routines.html">Vedi tutte →</a></div>
       <a class="card routine-card routine-link" href="session.html?id=legs"><div class="row"><span class="routine-icon">⚡</span><div><h3>Leg Day</h3><p>Gambe · Glutei · Core</p></div><span class="chevron">›</span></div><div class="meta"><span>◷ 60 min</span><span>▤ 4 esercizi</span></div></a>
-      <p class="demo-note">Gli allenamenti completati aggiornano la settimana e le statistiche.</p>
+      <p class="demo-note">XP, sfide e notifiche sono salvati in questo browser insieme agli allenamenti.</p>
     </main>
     <nav class="bottom-nav" aria-label="Navigazione principale"><a class="active" aria-current="page" href="home.html"><span class="nav-symbol">⌂</span>Home</a><a href="routines.html"><span class="nav-symbol">▦</span>Routine</a><a href="stats.html"><span class="nav-symbol">▥</span>Statistiche</a><a href="profile.html"><span class="nav-symbol">◉</span>Profilo</a></nav>
   </div>
