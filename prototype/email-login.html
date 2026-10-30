@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101419"><title>CoreFit · Accedi con Email</title>
-  <link rel="stylesheet" href="styles.css?v=9"><script src="auth.js?v=9" defer></script>
+  <link rel="stylesheet" href="styles.css?v=9"><script src="auth.js?v=10" defer></script>
 </head>
 <body data-auth="email-login">
   <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
@@ -11,10 +11,10 @@
     <div class="status-bar" aria-hidden="true"><span>9:41</span><span>●●● ▰</span></div>
     <main class="screen static-screen auth-form-screen">
       <div class="topline"><a class="back-link" href="login.html" aria-label="Torna alle opzioni di accesso">‹</a><div class="brand">CORE<span>FIT</span></div><span class="topline-spacer" aria-hidden="true"></span></div>
-      <div class="auth-intro"><div class="eyebrow">Bentornato</div><h1 class="title">Accedi con Email.</h1><p class="sub">Usa l’account locale creato su questo browser.</p></div>
+      <div class="auth-intro"><div class="eyebrow">Bentornato</div><h1 class="title">Accedi con Email.</h1><p class="sub">Inserisci username o email dell’account creato su questo browser.</p></div>
       <div id="auth-error" class="notice" role="alert" hidden></div>
       <form id="email-login-form">
-        <label class="field"><span>Email</span><input id="email-login-address" type="email" placeholder="nome@email.com" autocomplete="email" required></label>
+        <label class="field"><span>Username o email</span><input id="email-login-identifier" type="text" placeholder="Il tuo username o la tua email" autocomplete="username" required></label>
         <label class="field"><span>Password</span><input id="email-login-password" type="password" placeholder="La tua password di prova" autocomplete="current-password" required></label>
         <button class="primary" type="submit">Accedi →</button>
       </form>

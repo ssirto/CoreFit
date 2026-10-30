@@ -24,7 +24,7 @@
   }
   function account() {
     var saved = parse(ACCOUNT_KEY);
-    return saved && saved.email && saved.name && saved.salt && saved.verifier ? saved : null;
+    return saved && saved.email && (saved.username || saved.name) && saved.salt && saved.verifier ? saved : null;
   }
   function session() {
     var saved = parse(SESSION_KEY);
@@ -65,7 +65,8 @@
     if (button) button.disabled = busy;
   }
   function beginSession(saved) {
-    if (!write(SESSION_KEY, JSON.stringify({ email: saved.email, name: saved.name }))) {
+    var username = saved.username || saved.name;
+    if (!write(SESSION_KEY, JSON.stringify({ email: saved.email, username: username, name: username }))) {
       errorMessage('Impossibile mantenere l’accesso: controlla le impostazioni di archiviazione del browser.');
       return;
     }
@@ -78,18 +79,18 @@
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       clearError();
-      var name = element('register-name').value.trim();
+      var username = element('register-username').value.trim();
       var email = element('register-email').value.trim().toLowerCase();
       var password = element('register-password').value;
       var confirmation = element('register-confirm').value;
-      if (!name || !email || password.length < 8) { errorMessage('Inserisci nome, email e una password di almeno 8 caratteri.'); return; }
+      if (!/^[A-Za-z0-9._]{3,24}$/.test(username) || !email || password.length < 8) { errorMessage('Inserisci uno username di 3–24 caratteri (lettere, numeri, punto o _) e una password di almeno 8 caratteri.'); return; }
       if (password !== confirmation) { errorMessage('Le due password non coincidono.'); return; }
       if (account()) { errorMessage('Su questo browser esiste già un account locale. Vai su Accedi con Email.'); return; }
       if (!window.crypto || !window.crypto.getRandomValues) { errorMessage('Questo browser non supporta la registrazione locale.'); return; }
       var salt = hex(window.crypto.getRandomValues(new Uint8Array(16)));
       setBusy(form, true);
       verifier(password, salt).then(function (hash) {
-        var saved = { name: name, email: email, salt: salt, verifier: hash };
+        var saved = { username: username, name: username, email: email, salt: salt, verifier: hash };
         element('register-password').value = '';
         element('register-confirm').value = '';
         if (!write(ACCOUNT_KEY, JSON.stringify(saved))) { errorMessage('Impossibile salvare l’account locale in questo browser.'); return; }
@@ -104,8 +105,8 @@
       event.preventDefault();
       clearError();
       var saved = account();
-      var email = element('email-login-address').value.trim().toLowerCase();
-      if (!saved || email !== saved.email) { errorMessage('Account locale non trovato. Registrati su questo browser oppure controlla l’email.'); return; }
+      var identifier = element('email-login-identifier').value.trim().toLowerCase();
+      if (!saved || (identifier !== saved.email.toLowerCase() && identifier !== (saved.username || saved.name).toLowerCase())) { errorMessage('Account locale non trovato. Controlla username o email, oppure registrati su questo browser.'); return; }
       setBusy(form, true);
       verifier(element('email-login-password').value, saved.salt).then(function (hash) {
         element('email-login-password').value = '';
@@ -115,11 +116,11 @@
     });
   }
   function populateIdentity(saved) {
-    var firstName = saved.name.trim().split(/\s+/)[0];
-    var initial = firstName.charAt(0).toUpperCase();
-    if (element('home-name')) element('home-name').textContent = firstName;
+    var username = (saved.username || saved.name).trim();
+    var initial = username.charAt(0).toUpperCase();
+    if (element('home-name')) element('home-name').textContent = username;
     if (element('home-avatar')) element('home-avatar').textContent = initial;
-    if (element('profile-name')) element('profile-name').textContent = saved.name;
+    if (element('profile-name')) element('profile-name').textContent = username;
     if (element('profile-avatar')) element('profile-avatar').textContent = initial;
     if (element('profile-email')) element('profile-email').textContent = saved.email;
   }

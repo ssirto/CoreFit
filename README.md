@@ -96,6 +96,8 @@ La seconda fase aggiunge XP, livelli, streak giornaliera, achievement, sfide set
 
 Il percorso di accesso mostra l'introduzione solo alla prima visita su quel browser, poi propone accesso con Email, Google, Apple o registrazione. Nel prototipo funziona solo l'account email locale: la password di prova viene verificata sul dispositivo con PBKDF2 e non salvata in chiaro, mentre la sessione resta attiva fino all'uscita esplicita. Google e Apple sono visibili ma non attivi finché non saranno configurati OAuth e un servizio di autenticazione. Questa demo locale non verifica la proprietà dell'indirizzo email, non offre recupero password e **non è un sistema di autenticazione sicuro per dati reali**. Usa una password di prova diversa da quelle personali.
 
+La registrazione richiede uno username; l'accesso accetta lo username oppure l'email insieme alla password. Gli account locali creati in precedenza con il campo Nome restano utilizzabili tramite email.
+
 L'[anteprima online privata](https://corefit-mobile-preview.jauntynova15.chatgpt.site) è accessibile al proprietario del progetto e viene aggiornata quando pubblichiamo una nuova versione. Le pagine sono navigabili anche con i pulsanti Avanti e Indietro del browser.
 
 Per aprirla localmente, dalla cartella principale del progetto esegui:

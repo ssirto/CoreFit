@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101419"><title>CoreFit · Registrati</title>
-  <link rel="stylesheet" href="styles.css?v=9"><script src="auth.js?v=9" defer></script>
+  <link rel="stylesheet" href="styles.css?v=9"><script src="auth.js?v=10" defer></script>
 </head>
 <body data-auth="register">
   <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
@@ -14,7 +14,7 @@
       <div class="auth-intro"><div class="eyebrow">Inizia il percorso</div><h1 class="title">Crea il tuo account.</h1><p class="sub">Prepara il tuo spazio personale in CoreFit.</p></div>
       <div id="auth-error" class="notice" role="alert" hidden></div>
       <form id="register-form">
-        <label class="field"><span>Nome</span><input id="register-name" type="text" placeholder="Come ti chiami?" autocomplete="name" maxlength="40" required></label>
+        <label class="field"><span>Username</span><input id="register-username" type="text" placeholder="es. corefit_nicola" autocomplete="username" minlength="3" maxlength="24" pattern="[A-Za-z0-9._]+" title="Usa 3–24 caratteri: lettere, numeri, punto o _" required></label>
         <label class="field"><span>Email</span><input id="register-email" type="email" placeholder="nome@email.com" autocomplete="email" required></label>
         <label class="field"><span>Password di prova</span><input id="register-password" type="password" placeholder="Almeno 8 caratteri" autocomplete="new-password" minlength="8" required></label>
         <label class="field"><span>Conferma password</span><input id="register-confirm" type="password" placeholder="Ripeti la password" autocomplete="new-password" minlength="8" required></label>
