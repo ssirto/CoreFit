@@ -1,1 +1,30 @@
-<!doctype html><html lang="it"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#101419"><title>CoreFit · Statistiche</title><link rel="stylesheet" href="styles.css?v=4"></head><body><div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div><div class="device-shell"><div class="status-bar" aria-hidden="true"><span>9:41</span><span>●●● ▰</span></div><main class="screen static-screen"><div class="topline"><div class="brand">CORE<span>FIT</span></div><span class="icon-btn" aria-hidden="true">▥</span></div><div class="eyebrow">I numeri raccontano</div><h1 class="title">I tuoi progressi</h1><p class="sub">La costanza diventa visibile.</p><div class="segmented" style="margin:23px 0 17px"><span class="active">Settimana</span><span>Mese</span></div><div class="grid-2"><div class="stat-card"><span class="stat-icon">▥</span><strong>3</strong><small>Allenamenti</small></div><div class="stat-card"><span class="stat-icon">◷</span><strong>165</strong><small>Minuti attivi</small></div></div><div class="section-heading"><h2>Attività</h2><span class="mini-label">Questa settimana</span></div><div class="card"><div class="chart"><div class="chart-col"><div class="chart-bar" style="height:30%"></div><small>L</small></div><div class="chart-col"><div class="chart-bar current" style="height:65%"></div><small>M</small></div><div class="chart-col"><div class="chart-bar" style="height:10%"></div><small>M</small></div><div class="chart-col"><div class="chart-bar current" style="height:85%"></div><small>G</small></div><div class="chart-col"><div class="chart-bar" style="height:15%"></div><small>V</small></div><div class="chart-col"><div class="chart-bar current" style="height:100%"></div><small>S</small></div><div class="chart-col"><div class="chart-bar" style="height:10%"></div><small>D</small></div></div><p class="sub" style="margin-top:16px">Obiettivo settimanale raggiunto.</p></div><div class="section-heading"><h2>Traguardi</h2></div><div class="card"><div class="list-row"><span class="circle-icon">★</span><div><strong>Prima settimana completa</strong><small>3 allenamenti in 7 giorni</small></div><span class="pill" style="margin-left:auto">+50 XP</span></div><div class="list-row"><span class="circle-icon">↗</span><div><strong>Record personale</strong><small>Panca piana · 65 kg</small></div><span class="pill" style="margin-left:auto">+30 XP</span></div></div><div class="section-heading"><h2>In totale</h2></div><div class="grid-2"><div class="stat-card"><strong>24</strong><small>Sessioni</small></div><div class="stat-card"><strong>1380</strong><small>Minuti attivi</small></div></div><p class="demo-note">Statistiche di esempio, non ancora collegate agli allenamenti.</p></main><nav class="bottom-nav" aria-label="Navigazione principale"><a href="home.html"><span class="nav-symbol">⌂</span>Home</a><a href="routines.html"><span class="nav-symbol">▦</span>Routine</a><a class="active" aria-current="page" href="stats.html"><span class="nav-symbol">▥</span>Statistiche</a><a href="profile.html"><span class="nav-symbol">◉</span>Profilo</a></nav></div></body></html>
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101419"><title>CoreFit · Statistiche</title>
+  <link rel="stylesheet" href="styles.css?v=6"><script src="corefit.js?v=6" defer></script>
+</head>
+<body data-page="stats">
+  <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
+  <div class="device-shell">
+    <div class="status-bar" aria-hidden="true"><span>9:41</span><span>●●● ▰</span></div>
+    <main class="screen static-screen">
+      <div class="topline"><div class="brand">CORE<span>FIT</span></div><span class="icon-btn" aria-hidden="true">▥</span></div>
+      <div class="eyebrow">I numeri raccontano</div><h1 class="title">I tuoi progressi</h1>
+      <p class="sub">Ogni allenamento completato appare qui.</p>
+      <div id="app-notice" class="notice" hidden></div>
+      <div class="section-heading"><h2>Questa settimana</h2></div>
+      <div class="grid-2"><div class="stat-card"><span class="stat-icon">▥</span><strong id="stats-week-count">0</strong><small>Allenamenti</small></div><div class="stat-card"><span class="stat-icon">◷</span><strong id="stats-week-minutes">0</strong><small>Minuti attivi</small></div></div>
+      <div class="card" style="margin-top:15px"><div id="stats-chart" class="chart"></div><p class="sub" style="margin-top:15px">Allenamenti per giorno</p></div>
+      <div class="section-heading"><h2>Storico allenamenti</h2></div>
+      <div id="stats-sessions" class="card"><p class="empty">Completa un allenamento per vedere qui i tuoi risultati.</p></div>
+      <div class="section-heading"><h2>In totale</h2></div>
+      <div class="grid-2"><div class="stat-card"><strong id="stats-total-count">0</strong><small>Sessioni</small></div><div class="stat-card"><strong id="stats-total-minutes">0</strong><small>Minuti attivi</small></div><div class="stat-card full-span"><strong id="stats-total-volume">0 kg</strong><small>Volume registrato (peso × ripetizioni)</small></div></div>
+      <a class="secondary link-button" href="routines.html" style="margin-top:25px">Scegli una routine →</a>
+      <p class="demo-note">I dati vengono conservati solo in questo browser.</p>
+    </main>
+    <nav class="bottom-nav" aria-label="Navigazione principale"><a href="home.html"><span class="nav-symbol">⌂</span>Home</a><a href="routines.html"><span class="nav-symbol">▦</span>Routine</a><a class="active" aria-current="page" href="stats.html"><span class="nav-symbol">▥</span>Statistiche</a><a href="profile.html"><span class="nav-symbol">◉</span>Profilo</a></nav>
+  </div>
+</body>
+</html>

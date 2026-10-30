@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101419">
+  <title>CoreFit · Sessione</title>
+  <link rel="stylesheet" href="styles.css?v=6">
+  <script src="corefit.js?v=6" defer></script>
+</head>
+<body data-page="session">
+  <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
+  <div class="device-shell">
+    <div class="status-bar" aria-hidden="true"><span>9:41</span><span>●●● ▰</span></div>
+    <main class="screen static-screen">
+      <div class="topline"><div class="brand">CORE<span>FIT</span></div><a class="icon-btn close-link" href="routines.html" aria-label="Torna alle routine">×</a></div>
+      <div class="eyebrow">Allenamento in corso</div>
+      <h1 id="session-title" class="title">La tua sessione</h1>
+      <p id="session-focus" class="sub">Caricamento della routine…</p>
+      <p id="session-fallback" class="notice">Se questa schermata rimane ferma, il browser non ha caricato la parte interattiva. Torna alle routine e riprova.</p>
+      <div class="workout-header">
+        <div class="row space"><div><strong id="completed-count">0 / 0</strong><p>Serie completate</p></div><span id="session-duration" class="pill">—</span></div>
+        <div class="progress-track" style="margin-top:14px"><div id="session-progress" class="progress-fill" style="width:0"></div></div>
+      </div>
+      <p class="sub">Modifica peso e ripetizioni, poi spunta ogni serie completata. Puoi uscire e riprendere la sessione.</p>
+      <div id="app-notice" class="notice" hidden></div>
+      <div id="session-exercises"></div>
+      <button id="finish-session" class="primary" type="button" disabled style="margin-top:18px">Termina e salva allenamento</button>
+      <a class="small-btn center-link" href="routines.html">Torna alle routine</a>
+    </main>
+  </div>
+</body>
+</html>

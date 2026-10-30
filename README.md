@@ -90,7 +90,7 @@ By combining structured workout management, meaningful progression mechanics, an
 
 ## Prototipo navigabile
 
-Una prima anteprima mobile è disponibile in [`prototype/`](prototype/). Include onboarding, login simulato, dashboard, elenco delle routine, schermate di allenamento, statistiche e profilo. Le pagine pubblicate sono navigabili tramite link HTML, senza dipendere da JavaScript. Numeri, traguardi e profilo sono dati di esempio; i campi dell'allenamento non vengono ancora salvati. Il codice della precedente demo interattiva resta in `prototype/app.js` per la fase successiva.
+Una prima anteprima mobile è disponibile in [`prototype/`](prototype/). Include onboarding, login simulato, dashboard, elenco delle routine, schermata dell'allenamento, statistiche e profilo. La navigazione usa link HTML; routine, serie e sessioni sono gestite da `prototype/corefit.js` e salvate nella memoria locale del browser. La dashboard, lo storico e il profilo mostrano i dati degli allenamenti completati. Il database e il login reale non sono ancora collegati.
 
 L'[anteprima online privata](https://corefit-mobile-preview.jauntynova15.chatgpt.site) è accessibile al proprietario del progetto e viene aggiornata quando pubblichiamo una nuova versione. Le pagine sono navigabili anche con i pulsanti Avanti e Indietro del browser.
 
