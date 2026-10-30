@@ -239,28 +239,50 @@
 
   function setupStats() {
     if (!element('stats-sessions')) return;
-    var week = currentWeek(data.sessions);
-    var weekMinutes = week.reduce(function (sum, session) { return sum + session.minutes; }, 0);
     var allMinutes = data.sessions.reduce(function (sum, session) { return sum + session.minutes; }, 0);
-    setText('stats-week-count', week.length);
-    setText('stats-week-minutes', weekMinutes);
     setText('stats-total-count', data.sessions.length);
     setText('stats-total-minutes', allMinutes);
     var volume = 0;
     data.sessions.forEach(function (session) { session.sets.forEach(function (item) { volume += item.weight * item.reps; }); });
     setText('stats-total-volume', new Intl.NumberFormat('it-IT').format(volume) + ' kg');
-    var counts = [0, 0, 0, 0, 0, 0, 0];
-    week.forEach(function (session) { counts[(new Date(session.completedAt).getDay() + 6) % 7]++; });
-    var maximum = Math.max.apply(null, [1].concat(counts));
-    var chart = element('stats-chart');
-    ['L', 'M', 'M', 'G', 'V', 'S', 'D'].forEach(function (label, index) {
-      var column = node('div', 'chart-col');
-      var bar = node('div', 'chart-bar' + (counts[index] ? ' current' : ''));
-      bar.style.height = Math.max(4, counts[index] / maximum * 85) + '%';
-      column.appendChild(bar);
-      column.appendChild(node('small', '', label));
-      chart.appendChild(column);
+    var today = new Date();
+    var month = new Date(today.getFullYear(), today.getMonth(), 1);
+    var calendar = element('stats-calendar');
+    function renderMonth() {
+      var year = month.getFullYear();
+      var monthIndex = month.getMonth();
+      var dayCount = new Date(year, monthIndex + 1, 0).getDate();
+      var counts = [];
+      for (var day = 0; day <= dayCount; day++) counts.push(0);
+      var monthSessions = data.sessions.filter(function (session) {
+        var date = new Date(session.completedAt);
+        if (isNaN(date.getTime()) || date.getFullYear() !== year || date.getMonth() !== monthIndex) return false;
+        counts[date.getDate()]++;
+        return true;
+      });
+      var monthName = new Intl.DateTimeFormat('it-IT', { month: 'long', year: 'numeric' }).format(month);
+      setText('stats-month-label', monthName.charAt(0).toUpperCase() + monthName.slice(1));
+      setText('stats-month-count', monthSessions.length);
+      setText('stats-month-minutes', monthSessions.reduce(function (sum, session) { return sum + session.minutes; }, 0));
+      element('stats-next-month').disabled = year === today.getFullYear() && monthIndex === today.getMonth();
+      calendar.textContent = '';
+      calendar.setAttribute('aria-label', 'Allenamenti di ' + monthName);
+      for (var dateNumber = 1; dateNumber <= dayCount; dateNumber++) {
+        var square = node('span', 'activity-day' + (counts[dateNumber] ? ' active' : ''));
+        var label = dateNumber + ' ' + monthName + ': ' + counts[dateNumber] + (counts[dateNumber] === 1 ? ' allenamento' : ' allenamenti');
+        square.setAttribute('role', 'gridcell');
+        square.setAttribute('aria-label', label);
+        square.title = label;
+        calendar.appendChild(square);
+      }
+    }
+    element('stats-prev-month').addEventListener('click', function () { month = new Date(month.getFullYear(), month.getMonth() - 1, 1); renderMonth(); });
+    element('stats-next-month').addEventListener('click', function () {
+      if (month.getFullYear() === today.getFullYear() && month.getMonth() === today.getMonth()) return;
+      month = new Date(month.getFullYear(), month.getMonth() + 1, 1);
+      renderMonth();
     });
+    renderMonth();
     if (window.location.search.indexOf('done=1') !== -1 && data.sessions.length) showNotice('Allenamento salvato. Ottimo lavoro!');
     var list = element('stats-sessions');
     list.textContent = '';

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101419"><title>CoreFit · Statistiche</title>
-  <link rel="stylesheet" href="styles.css?v=6"><script src="corefit.js?v=6" defer></script>
+  <link rel="stylesheet" href="styles.css?v=7"><script src="corefit.js?v=7" defer></script>
 </head>
 <body data-page="stats">
   <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
@@ -14,9 +14,10 @@
       <div class="eyebrow">I numeri raccontano</div><h1 class="title">I tuoi progressi</h1>
       <p class="sub">Ogni allenamento completato appare qui.</p>
       <div id="app-notice" class="notice" hidden></div>
-      <div class="section-heading"><h2>Questa settimana</h2></div>
-      <div class="grid-2"><div class="stat-card"><span class="stat-icon">▥</span><strong id="stats-week-count">0</strong><small>Allenamenti</small></div><div class="stat-card"><span class="stat-icon">◷</span><strong id="stats-week-minutes">0</strong><small>Minuti attivi</small></div></div>
-      <div class="card" style="margin-top:15px"><div id="stats-chart" class="chart"></div><p class="sub" style="margin-top:15px">Allenamenti per giorno</p></div>
+      <div class="section-heading"><h2>Registro allenamenti</h2></div>
+      <div class="month-navigation" aria-label="Seleziona mese"><button id="stats-prev-month" class="month-arrow" type="button" aria-label="Mese precedente">‹</button><strong id="stats-month-label" aria-live="polite">Questo mese</strong><button id="stats-next-month" class="month-arrow" type="button" aria-label="Mese successivo">›</button></div>
+      <div class="grid-2"><div class="stat-card"><span class="stat-icon">▥</span><strong id="stats-month-count">0</strong><small>Allenamenti nel mese</small></div><div class="stat-card"><span class="stat-icon">◷</span><strong id="stats-month-minutes">0</strong><small>Minuti attivi nel mese</small></div></div>
+      <div class="card activity-card"><div id="stats-calendar" class="activity-grid" role="grid" aria-label="Allenamenti del mese"></div><div class="activity-legend"><span><i class="activity-key" aria-hidden="true"></i> Nessun allenamento</span><span><i class="activity-key active" aria-hidden="true"></i> Allenamento</span></div></div>
       <div class="section-heading"><h2>Storico allenamenti</h2></div>
       <div id="stats-sessions" class="card"><p class="empty">Completa un allenamento per vedere qui i tuoi risultati.</p></div>
       <div class="section-heading"><h2>In totale</h2></div>
