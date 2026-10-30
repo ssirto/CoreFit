@@ -6,9 +6,10 @@
     <meta name="theme-color" content="#101419" />
     <meta name="description" content="Anteprima mobile navigabile di CoreFit." />
     <title>CoreFit · Benvenuto</title>
-    <link rel="stylesheet" href="styles.css?v=5" />
+    <link rel="stylesheet" href="styles.css?v=9" />
+    <script src="auth.js?v=9" defer></script>
   </head>
-  <body>
+  <body data-auth="intro">
     <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br />La tua evoluzione.</p></div>
     <div class="device-shell">
       <div class="status-bar" aria-hidden="true"><span>9:41</span><span>●●● ▰</span></div>
@@ -28,7 +29,7 @@
                 <div class="dots" aria-hidden="true"><span class="active"></span><span></span><span></span></div>
                 <div class="static-spacer"></div>
                 <label class="primary link-button slide-action" for="step-2">Continua →</label>
-                <a class="small-btn center-link" href="login.html">Salta introduzione</a>
+                <a class="small-btn center-link" href="login.html" data-finish-onboarding>Salta introduzione</a>
               </section>
               <section class="onboarding-slide" aria-label="Introduzione 2 di 3">
                 <div class="onboard-art art-1" aria-hidden="true"></div>
@@ -47,7 +48,7 @@
                 <p class="sub">Trasforma la costanza in livelli, traguardi e motivazione.</p>
                 <div class="dots" aria-hidden="true"><span></span><span></span><span class="active"></span></div>
                 <div class="static-spacer"></div>
-                <a class="primary link-button" href="login.html">Inizia ora →</a>
+                <a class="primary link-button" href="login.html" data-finish-onboarding>Inizia ora →</a>
                 <label class="small-btn center-link slide-back" for="step-2">← Indietro</label>
               </section>
             </div>

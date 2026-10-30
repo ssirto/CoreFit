@@ -94,6 +94,8 @@ Una prima anteprima mobile è disponibile in [`prototype/`](prototype/). Include
 
 La seconda fase aggiunge XP, livelli, streak giornaliera, achievement, sfide settimanali e mensili, notifiche nell'app e una dashboard più ricca. `prototype/gamification.js` calcola i progressi dalle sessioni registrate: 200 XP per livello, XP per allenamenti e traguardi, sfide che si rinnovano senza togliere gli XP già guadagnati. Le notifiche lette sono salvate localmente. Non sono ancora presenti notifiche push, database o login reale; i dati non si sincronizzano tra dispositivi.
 
+Il percorso di accesso mostra l'introduzione solo alla prima visita su quel browser, poi propone accesso con Email, Google, Apple o registrazione. Nel prototipo funziona solo l'account email locale: la password di prova viene verificata sul dispositivo con PBKDF2 e non salvata in chiaro, mentre la sessione resta attiva fino all'uscita esplicita. Google e Apple sono visibili ma non attivi finché non saranno configurati OAuth e un servizio di autenticazione. Questa demo locale non verifica la proprietà dell'indirizzo email, non offre recupero password e **non è un sistema di autenticazione sicuro per dati reali**. Usa una password di prova diversa da quelle personali.
+
 L'[anteprima online privata](https://corefit-mobile-preview.jauntynova15.chatgpt.site) è accessibile al proprietario del progetto e viene aggiornata quando pubblichiamo una nuova versione. Le pagine sono navigabili anche con i pulsanti Avanti e Indietro del browser.
 
 Per aprirla localmente, dalla cartella principale del progetto esegui:

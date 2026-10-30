@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101419"><title>CoreFit · Registrati</title>
+  <link rel="stylesheet" href="styles.css?v=9"><script src="auth.js?v=9" defer></script>
+</head>
+<body data-auth="register">
+  <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
+  <div class="device-shell">
+    <div class="status-bar" aria-hidden="true"><span>9:41</span><span>●●● ▰</span></div>
+    <main class="screen static-screen auth-form-screen">
+      <div class="topline"><a class="back-link" href="login.html" aria-label="Torna alle opzioni di accesso">‹</a><div class="brand">CORE<span>FIT</span></div><span class="topline-spacer" aria-hidden="true"></span></div>
+      <div class="auth-intro"><div class="eyebrow">Inizia il percorso</div><h1 class="title">Crea il tuo account.</h1><p class="sub">Prepara il tuo spazio personale in CoreFit.</p></div>
+      <div id="auth-error" class="notice" role="alert" hidden></div>
+      <form id="register-form">
+        <label class="field"><span>Nome</span><input id="register-name" type="text" placeholder="Come ti chiami?" autocomplete="name" maxlength="40" required></label>
+        <label class="field"><span>Email</span><input id="register-email" type="email" placeholder="nome@email.com" autocomplete="email" required></label>
+        <label class="field"><span>Password di prova</span><input id="register-password" type="password" placeholder="Almeno 8 caratteri" autocomplete="new-password" minlength="8" required></label>
+        <label class="field"><span>Conferma password</span><input id="register-confirm" type="password" placeholder="Ripeti la password" autocomplete="new-password" minlength="8" required></label>
+        <button class="primary" type="submit">Registrati →</button>
+      </form>
+      <div class="auth-footer"><span>Hai già un account?</span><a href="email-login.html">Accedi</a></div>
+      <p class="demo-note">Solo demo su questo browser: usa una password nuova di prova, non una password che usi già altrove.</p>
+    </main>
+  </div>
+</body>
+</html>
