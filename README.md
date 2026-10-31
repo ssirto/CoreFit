@@ -100,6 +100,8 @@ La registrazione richiede uno username; l'accesso accetta lo username oppure l'e
 
 I rank sono separati dagli XP e si calcolano per esercizio a partire dalle serie completate. Ogni serie assegna `round(10 + min(ripetizioni, 30) + min(peso_kg, 300) / 10 + bonus_record)` punti, dove `bonus_record` vale 15 per un nuovo miglior set personale. Le soglie delle 27 divisioni (WOOD III fino a OLYMPIAN I) seguono `80n + 12n²` punti per la divisione `n` da 0 a 26. Il rank generale è la media aritmetica, arrotondata, degli indici di rank degli esercizi registrati; ogni esercizio pesa allo stesso modo. È una progressione personale, non una classifica tra utenti o una valutazione scientifica della forza. Gli esercizi sono raggruppati per nome ignorando maiuscole e spazi ripetuti.
 
+La pagina Rank include una seconda sezione “Massimale”, con una scheda per ciascun esercizio registrato. Mostra il miglior massimale stimato (1RM) dalle serie con carico maggiore di 0 kg e da 1 a 10 ripetizioni, usando `peso × (1 + ripetizioni / 30)`; per una singola ripetizione usa il peso effettivamente registrato. Gli esercizi registrati a 0 kg restano visibili ma senza stima in kg, perché il prototipo non conosce ancora il peso corporeo dell'utente. Il valore è solo indicativo e non sostituisce una prova supervisionata.
+
 L'[anteprima online privata](https://corefit-mobile-preview.jauntynova15.chatgpt.site) è accessibile al proprietario del progetto e viene aggiornata quando pubblichiamo una nuova versione. Le pagine sono navigabili anche con i pulsanti Avanti e Indietro del browser.
 
 Per aprirla localmente, dalla cartella principale del progetto esegui:

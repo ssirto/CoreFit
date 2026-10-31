@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101419"><title>CoreFit · Rank</title>
-  <link rel="stylesheet" href="styles.css?v=13"><script src="auth.js?v=10" defer></script><script src="ranks.js?v=11" defer></script>
+  <link rel="stylesheet" href="styles.css?v=14"><script src="auth.js?v=10" defer></script><script src="ranks.js?v=14" defer></script>
 </head>
 <body data-page="ranks" data-auth="protected">
   <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
@@ -16,6 +16,10 @@
       <section class="rank-hero" aria-label="Rank generale"><span class="eyebrow">Rank generale</span><strong id="rank-general" class="rank-name rank-unranked">Non classificato</strong><small id="rank-general-count">0 esercizi nella media</small></section>
       <div class="section-heading"><h2>Per esercizio</h2></div>
       <div id="rank-list" class="rank-list"><p class="sub">Calcolo dei rank… Se questa schermata resta così, ricarica la pagina.</p></div>
+      <div class="section-heading"><h2>Massimale</h2><span id="max-count" class="pill">0 disponibili</span></div>
+      <p class="sub max-intro">Stima della singola ripetizione massima (1RM) dal carico registrato. Usiamo solo serie da 1 a 10 ripetizioni.</p>
+      <div id="max-list" class="max-list"><p class="sub">Calcolo dei massimali…</p></div>
+      <p class="demo-note">È una stima, non un invito a provare il carico massimo reale. Gli esercizi a corpo libero registrati a 0 kg non hanno ancora una stima in kg.</p>
       <details class="card rank-rules"><summary>Come funzionano i rank?</summary><p class="sub">Ogni serie completata dà punti in base a ripetizioni e carico; un nuovo record personale aggiunge un bonus. Ogni rank ha tre divisioni: III, II e I. Il rank generale è la media, arrotondata, dei rank degli esercizi registrati. È una progressione personale, non una classifica tra utenti.</p><div class="rank-ladder"><span>WOOD</span><span>BRONZE</span><span>SILVER</span><span>GOLD</span><span>PLATINUM</span><span>DIAMOND</span><span>CHAMPION</span><span>TITAN</span><span>OLYMPIAN</span></div></details>
       <a class="secondary link-button" href="routines.html">Vai alle routine →</a>
       <p class="demo-note">I rank sono calcolati dagli allenamenti salvati in questo browser.</p>

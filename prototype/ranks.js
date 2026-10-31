@@ -40,7 +40,7 @@
         var reps = Number(set.reps);
         var weight = Number(set.weight);
         if (!name || !isFinite(reps) || !isFinite(weight) || reps <= 0 || weight < 0) return;
-        if (!byName[key]) byName[key] = { name: name, score: 0, sets: 0, best: 0, bestSet: null };
+        if (!byName[key]) byName[key] = { name: name, score: 0, sets: 0, best: 0, bestSet: null, maxEstimate: null };
         var exercise = byName[key];
         var performance = weight > 0 ? weight * (1 + reps / 30) : reps;
         var personalBest = performance > exercise.best;
@@ -49,6 +49,12 @@
         if (personalBest) {
           exercise.best = performance;
           exercise.bestSet = { weight: weight, reps: reps };
+        }
+        if (weight > 0 && reps >= 1 && reps <= 10) {
+          var estimate = weight * (1 + (reps === 1 ? 0 : reps / 30));
+          if (!exercise.maxEstimate || estimate > exercise.maxEstimate.value || (estimate === exercise.maxEstimate.value && reps < exercise.maxEstimate.reps)) {
+            exercise.maxEstimate = { value: estimate, weight: weight, reps: reps, date: session.completedAt };
+          }
         }
       });
     });
@@ -108,10 +114,40 @@
       host.appendChild(card);
     });
   }
+  function renderMax(result) {
+    var host = element('max-list');
+    if (!host) return;
+    var available = result.exercises.filter(function (exercise) { return !!exercise.maxEstimate; }).length;
+    if (element('max-count')) element('max-count').textContent = available + ' / ' + result.exercises.length + ' disponibili';
+    host.textContent = '';
+    if (!result.exercises.length) {
+      var empty = node('div', 'card rank-empty');
+      empty.appendChild(node('strong', '', 'Nessun massimale da stimare'));
+      empty.appendChild(node('p', 'sub', 'Completa e salva un allenamento per vedere qui i tuoi esercizi.'));
+      host.appendChild(empty);
+      return;
+    }
+    result.exercises.forEach(function (exercise) {
+      var card = node('div', 'card max-card');
+      var heading = node('div', 'row space max-card-heading');
+      heading.appendChild(node('strong', '', exercise.name));
+      if (exercise.maxEstimate) {
+        heading.appendChild(node('strong', 'max-value', new Intl.NumberFormat('it-IT', { maximumFractionDigits: 1 }).format(exercise.maxEstimate.value) + ' kg'));
+        card.appendChild(heading);
+        card.appendChild(node('p', 'sub', 'Da ' + exercise.maxEstimate.weight + ' kg × ' + exercise.maxEstimate.reps + ' rip. · ' + new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(exercise.maxEstimate.date))));
+      } else {
+        heading.appendChild(node('span', 'max-unavailable', 'Non disponibile'));
+        card.appendChild(heading);
+        card.appendChild(node('p', 'sub', 'Registra una serie con peso maggiore di 0 kg e da 1 a 10 ripetizioni.'));
+      }
+      host.appendChild(card);
+    });
+  }
   function start() {
     var result = calculate();
     renderSummary(result);
     renderRanks(result);
+    renderMax(result);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
