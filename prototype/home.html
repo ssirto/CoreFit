@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101419"><title>CoreFit · Home</title>
-  <link rel="stylesheet" href="styles.css?v=9"><script src="auth.js?v=10" defer></script><script src="corefit.js?v=9" defer></script><script src="gamification.js?v=9" defer></script>
+  <link rel="stylesheet" href="styles.css?v=11"><script src="auth.js?v=10" defer></script><script src="corefit.js?v=9" defer></script><script src="gamification.js?v=9" defer></script><script src="ranks.js?v=11" defer></script>
 </head>
 <body data-page="home" data-auth="protected">
   <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
@@ -15,6 +15,7 @@
       <p class="sub">Continua così: ogni sessione conta.</p>
       <a id="home-resume" class="notice resume-link" href="session.html" hidden>Hai un allenamento in corso. Riprendilo →</a>
       <section class="level-panel" aria-label="Livello ed esperienza"><div class="row space"><span class="level-pill">LIVELLO <strong id="home-level">1</strong></span><span class="level-total"><strong id="home-xp">0</strong> / <span id="home-xp-next">200</span> XP</span></div><h2>Ogni allenamento ti fa crescere.</h2><div class="progress-track level-track"><div id="home-xp-fill" class="progress-fill" style="width:0%"></div></div><div class="streak-strip"><span>♨ <strong id="home-streak">0</strong> <span id="home-streak-unit">giorni</span> di streak</span><span>Record: <strong id="home-best-streak">0</strong></span></div></section>
+      <a class="card rank-summary-link" href="ranks.html"><span class="rank-summary-icon" aria-hidden="true">◆</span><span><small>RANK GENERALE</small><strong id="home-general-rank" class="rank-name rank-unranked">Non classificato</strong><small id="home-rank-count">0 esercizi classificati</small></span><span class="chevron">›</span></a>
       <div class="section-heading"><h2>Il prossimo passo</h2></div>
       <div class="hero-card"><div class="eyebrow">Allenamento consigliato</div><h2>Upper Body Power</h2><p>Petto · Spalle · Tricipiti · 55 min</p><a class="hero-link" href="session.html?id=upper">Inizia allenamento ↗</a></div>
       <div class="section-heading"><h2>La tua sfida</h2><a class="text-action" href="challenges.html">Vedi tutte →</a></div>

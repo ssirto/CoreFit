@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101419"><title>CoreFit · Profilo</title>
-  <link rel="stylesheet" href="styles.css?v=9"><script src="auth.js?v=10" defer></script><script src="corefit.js?v=9" defer></script><script src="gamification.js?v=9" defer></script>
+  <link rel="stylesheet" href="styles.css?v=11"><script src="auth.js?v=10" defer></script><script src="corefit.js?v=9" defer></script><script src="gamification.js?v=9" defer></script><script src="ranks.js?v=11" defer></script>
 </head>
 <body data-page="profile" data-auth="protected">
   <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
@@ -18,6 +18,7 @@
       <div class="grid-2"><div class="stat-card"><strong id="profile-sessions">0</strong><small>Allenamenti</small></div><div class="stat-card"><strong id="profile-sets">0</strong><small>Serie completate</small></div></div>
       <div class="section-heading"><h2>La mia crescita</h2></div>
       <div class="grid-2"><div class="stat-card"><strong id="profile-level">1</strong><small>Livello</small></div><div class="stat-card"><strong id="profile-xp">0</strong><small>XP totali</small></div><div class="stat-card full-span"><strong id="profile-streak">0</strong><small>Giorni di streak attiva</small></div></div>
+      <a class="card rank-summary-link" href="ranks.html"><span class="rank-summary-icon" aria-hidden="true">◆</span><span><small>RANK GENERALE</small><strong id="profile-general-rank" class="rank-name rank-unranked">Non classificato</strong><small id="profile-rank-count">0 esercizi nella media</small></span><span class="chevron">›</span></a>
       <div class="section-heading"><h2>Esplora</h2></div>
       <a class="card routine-link profile-link" href="routines.html"><span class="circle-icon">▦</span><div><strong>Le mie routine</strong><small>Organizza il prossimo allenamento</small></div><span class="chevron">›</span></a>
       <a class="card routine-link profile-link" href="achievements.html" style="margin-top:10px"><span class="circle-icon">★</span><div><strong>Achievement</strong><small>I traguardi sbloccati</small></div><span class="chevron">›</span></a>
