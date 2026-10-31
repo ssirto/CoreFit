@@ -12,3 +12,4 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr));padding-left:6px;padding-right:6px}.bottom-nav a{min-width:0;font-size:9px}.bottom-nav .nav-symbol{font-size:22px}
 .bottom-nav a{color:#f6f7f5}.bottom-nav a.active{color:#c9fa64}.bottom-nav .nav-icon{display:block;width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.bottom-nav a:focus-visible{outline:2px solid #c9fa64;outline-offset:2px;border-radius:8px}
 .max-intro{margin:-3px 0 13px}.max-list{display:grid;gap:10px}.max-card-heading{align-items:flex-start;gap:10px}.max-card-heading>strong:first-child{min-width:0;font:700 15px Outfit,sans-serif;overflow-wrap:anywhere}.max-card .sub{margin-top:8px}.max-value{flex:none;color:#c9fa64;font:800 21px Outfit,sans-serif}.max-unavailable{color:#aab4ad;font-size:11px;white-space:nowrap}
+.max-rules{margin-top:10px}
