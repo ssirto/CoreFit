@@ -79,10 +79,14 @@ La colonna **N. attori** conta i ruoli associati direttamente al caso d’uso. P
 Il rettangolo delimita il sistema **CoreFit**. Gli attori sono all’esterno. Le frecce verso gli ovali indicano le associazioni dirette. Tra due attori, la freccia punta dal ruolo specializzato al ruolo generale. Il contorno tratteggiato identifica le funzioni Premium previste.
 
 ```mermaid
+---
+config:
+  htmlLabels: false
+---
 flowchart LR
-    U["«attore» Utente"]
-    R["«attore» UtenteRegistrato"]
-    P["«attore» UtentePremium"]
+    U["«attore»<br/>Utente"]
+    R["«attore»<br/>UtenteRegistrato"]
+    P["«attore»<br/>UtentePremium"]
     R -->|specializza| U
     P -->|specializza| R
 
