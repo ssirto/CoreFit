@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101419">
   <title>CoreFit · Nuova routine</title>
-  <link rel="stylesheet" href="styles.css?v=9">
+  <link rel="stylesheet" href="styles.css?v=14">
   <script src="auth.js?v=10" defer></script>
-  <script src="corefit.js?v=9" defer></script>
+  <script src="exercise-catalog.js?v=1" defer></script>
+  <script src="exercise-selector.js?v=1" defer></script>
+  <script src="corefit.js?v=10" defer></script>
 </head>
 <body data-page="create" data-auth="protected">
   <div class="desktop-backdrop" aria-hidden="true"><span>CORE<span>FIT</span></span><p>Il tuo allenamento.<br>La tua evoluzione.</p></div>
@@ -16,18 +18,19 @@
     <main class="screen static-screen">
       <div class="topline"><div class="brand">CORE<span>FIT</span></div><a class="icon-btn close-link" href="routines.html" aria-label="Torna alle routine">×</a></div>
       <div class="eyebrow">Il tuo piano</div>
-      <h1 class="title">Nuova routine</h1>
+      <h1 id="creator-title" class="title">Nuova routine</h1>
       <p class="sub">Scegli gli esercizi e prepara il prossimo allenamento.</p>
-      <div id="app-notice" class="notice" hidden></div>
+      <div id="app-notice" class="notice" role="status" hidden></div>
       <form id="routine-form">
         <label class="field"><span>Nome routine</span><input id="routine-name" maxlength="50" placeholder="Es. Full body" required></label>
         <label class="field"><span>Obiettivo o focus</span><input id="routine-focus" maxlength="80" placeholder="Es. Forza · tutto il corpo" required></label>
         <label class="field"><span>Durata prevista (minuti)</span><input id="routine-duration" type="number" min="5" max="240" value="45" required></label>
         <div class="section-heading"><h2>Esercizi</h2></div>
+        <p id="creator-fallback" class="notice">Il selettore degli esercizi non è disponibile.</p>
+        <p id="creator-empty" class="empty" hidden>Aggiungi almeno un esercizio alla routine.</p>
         <div id="exercise-list"></div>
-        <p id="creator-fallback" class="notice">Se non compare un campo per il primo esercizio, la parte interattiva non si è caricata.</p>
-        <button id="add-exercise" class="secondary" type="button">＋ Aggiungi esercizio</button>
-        <button class="primary" type="submit" style="margin-top:20px">Salva e inizia →</button>
+        <div id="exercise-picker"></div>
+        <button id="save-routine" class="primary" type="submit" disabled style="margin-top:20px">Salva e inizia →</button>
       </form>
       <p class="demo-note">La routine resta in questo browser, anche dopo aver chiuso la pagina.</p>
     </main>

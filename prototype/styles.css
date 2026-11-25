@@ -13,3 +13,17 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .bottom-nav a{color:#f6f7f5}.bottom-nav a.active{color:#c9fa64}.bottom-nav .nav-icon{display:block;width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.bottom-nav a:focus-visible{outline:2px solid #c9fa64;outline-offset:2px;border-radius:8px}
 .max-intro{margin:-3px 0 13px}.max-list{display:grid;gap:10px}.max-card-heading{align-items:flex-start;gap:10px}.max-card-heading>strong:first-child{min-width:0;font:700 15px Outfit,sans-serif;overflow-wrap:anywhere}.max-card .sub{margin-top:8px}.max-value{flex:none;color:#c9fa64;font:800 21px Outfit,sans-serif}.max-unavailable{color:#aab4ad;font-size:11px;white-space:nowrap}
 .max-rules{margin-top:10px}
+
+.exercise-picker{margin:16px 0;padding:16px}
+.exercise-picker .field:first-child{margin-top:0}
+.exercise-picker select{width:100%;min-height:44px;padding:10px 12px;border:1px solid #46514a;border-radius:12px;background:#252e2d;color:#f6f7f5;font:inherit}
+.exercise-picker select:focus-visible,.exercise-picker summary:focus-visible,.workout-exercise summary:focus-visible{outline:2px solid #c9fa64;outline-offset:3px}
+.exercise-picker select:disabled,.exercise-picker button:disabled{opacity:.55;cursor:default}
+.exercise-picker .field input,.workout-exercise .field input{font-size:16px}
+.exercise-picker-filters{margin:12px 0}
+.exercise-picker-filters summary{cursor:pointer;color:#c9fa64;font-size:14px;padding:9px 0}
+.exercise-favorite,.routine-edit-link{display:inline-flex;min-height:44px;align-items:center}
+.exercise-favorite[hidden]{display:none}
+.routine-edit-link{margin:-6px 0 10px 15px}
+.exercise-log-row{grid-template-columns:30px minmax(0,1fr) minmax(0,1fr) 36px}
+.exercise-log-row.without-weight{grid-template-columns:30px minmax(0,1fr) 36px}
