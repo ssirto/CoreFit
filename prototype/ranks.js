@@ -30,15 +30,20 @@
     return { name: TIERS[tierIndex] + ' ' + DIVISIONS[index % 3], className: 'rank-' + TIERS[tierIndex].toLowerCase() };
   }
   function calculate() {
-    var byName = {};
+    var byName = Object.create(null);
+    var catalog = window.CoreFitExercises;
     readSessions().filter(function (session) { return session && !isNaN(new Date(session.completedAt).getTime()); }).sort(function (a, b) { return new Date(a.completedAt) - new Date(b.completedAt); }).forEach(function (session) {
       if (!session || !Array.isArray(session.sets)) return;
       session.sets.forEach(function (set) {
         if (!set || typeof set.exercise !== 'string') return;
         var name = set.exercise.trim().replace(/\s+/g, ' ');
-        var key = name.toLowerCase();
+        var entry = catalog && catalog.find(set.exerciseId, name);
+        var key = set.exerciseId || (entry && entry.id) || name.toLowerCase();
+        if (entry) name = entry.name;
         var reps = Number(set.reps);
-        var weight = Number(set.weight);
+        // Assistance reduces resistance and is not part of lifted load or the 1RM estimate.
+        var assisted = set.trackingType === 'assisted_reps';
+        var weight = assisted ? 0 : Number(set.weight);
         if (!name || !isFinite(reps) || !isFinite(weight) || reps <= 0 || weight < 0) return;
         if (!byName[key]) byName[key] = { name: name, score: 0, sets: 0, best: 0, bestSet: null, maxEstimate: null };
         var exercise = byName[key];
@@ -48,7 +53,7 @@
         exercise.sets++;
         if (personalBest) {
           exercise.best = performance;
-          exercise.bestSet = { weight: weight, reps: reps };
+          exercise.bestSet = { weight: weight, reps: reps, assisted: assisted ? Number(set.weight) : null };
         }
         if (weight > 0 && reps >= 1 && reps <= 10) {
           var estimate = weight * (1 + (reps === 1 ? 0 : reps / 30));
@@ -101,7 +106,12 @@
       card.appendChild(header);
       var details = node('div', 'rank-card-details');
       details.appendChild(node('span', '', exercise.sets + (exercise.sets === 1 ? ' serie completata' : ' serie completate')));
-      if (exercise.bestSet) details.appendChild(node('span', '', exercise.bestSet.weight > 0 ? 'Record: ' + exercise.bestSet.weight + ' kg × ' + exercise.bestSet.reps + ' rip.' : 'Record: ' + exercise.bestSet.reps + ' rip. a corpo libero'));
+      var best = exercise.bestSet;
+      if (best) {
+        var record = best.weight ? best.weight + ' kg × ' + best.reps + ' rip.' : best.reps + ' rip.';
+        if (best.assisted !== null) record += ' con ' + best.assisted + ' kg di assistenza';
+        details.appendChild(node('span', '', 'Record ' + record));
+      }
       card.appendChild(details);
       var current = threshold(exercise.index);
       var next = exercise.index < LAST_INDEX ? threshold(exercise.index + 1) : null;
