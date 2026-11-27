@@ -87,6 +87,8 @@ flowchart LR
     U["«attore»<br/>Utente"]
     R["«attore»<br/>UtenteRegistrato"]
     P["«attore»<br/>UtentePremium"]
+    U ~~~ R
+    R ~~~ P
     R -->|specializza| U
     P -->|specializza| R
 
